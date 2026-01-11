@@ -1,8 +1,5 @@
-// frontend/src/contexts/AuthContext.jsx
-
 import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
-import config from "../config";
 
 const AuthContext = createContext();
 
@@ -34,9 +31,12 @@ export const AuthProvider = ({ children }) => {
       const storedToken = localStorage.getItem("accessToken");
       if (storedToken) {
         try {
-          const response = await axios.get(`${config.apiUrl}/profile`, {
-            headers: { Authorization: `Bearer ${storedToken}` },
-          });
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_URL}/profile`,
+            {
+              headers: { Authorization: `Bearer ${storedToken}` },
+            }
+          );
           setUser(response.data.user);
           setToken(storedToken);
         } catch (error) {
@@ -54,12 +54,15 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (email, password, username, role = "user") => {
     try {
-      const response = await axios.post(`${config.apiUrl}/register`, {
-        email,
-        password,
-        username,
-        role,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/register`,
+        {
+          email,
+          password,
+          username,
+          role,
+        }
+      );
 
       console.log("Registration response:", response.data);
       return { success: true, data: response.data };
@@ -75,10 +78,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await axios.post(`${config.apiUrl}/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/login`,
+        {
+          email,
+          password,
+        }
+      );
 
       const { accessToken, refreshToken, user } = response.data;
 
@@ -102,7 +108,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await axios.post(
-        `${config.apiUrl}/logout`,
+        `${import.meta.env.VITE_API_URL}/logout`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
