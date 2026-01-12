@@ -25,4 +25,20 @@ async function authenticateToken(req, res, next) {
   }
 }
 
-module.exports = { authenticateToken };
+//middleware to check if user is admin
+async function isAdmin(req, res, next) {
+  try {
+    const userProfile = await authModel.getUserProfile(req.user.id);
+
+    if (userProfile.role !== "admin") {
+      return res.status(403).json({ error: "Admin access required" });
+    }
+
+    next();
+  } catch (error) {
+    console.error("Admin check error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+module.exports = { authenticateToken, isAdmin };
