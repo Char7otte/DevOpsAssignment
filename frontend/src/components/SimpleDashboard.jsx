@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import "../SimpleDashboard.css";
+import axios from "axios";
+import {useEffect, useState} from "react";
 
 const SimpleDashboard = () => {
   const { user, logout, isAdmin } = useAuth();
@@ -10,6 +12,24 @@ const SimpleDashboard = () => {
     await logout();
     navigate("/login");
   };
+
+  const [Users, setUsers] = useState([])
+
+  const getAllUsers = async () => {
+    try {
+
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/Users`);
+      setUsers(response.data);
+    } catch (error) {
+      console.error('Failed to fetch users:', error);
+      // Handle error appropriately (show toast, set error state, etc.)
+    }
+  }
+
+  useEffect(() => {
+    getAllUsers();
+  }, []) // Empty dependency array to run only on component mount
+
 
   return (
     <div className="simple-dashboard">
@@ -40,6 +60,15 @@ const SimpleDashboard = () => {
           </div>
         </div>
       </div>
+
+      {Users && isAdmin && (Users.map((user) => (
+          <div key={user.userid}>
+            <h2>{user.username}</h2>
+            <p>{user.email}</p>
+          </div>
+      )))}
+
+
     </div>
   );
 };

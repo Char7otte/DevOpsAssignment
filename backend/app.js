@@ -6,6 +6,7 @@ const authController = require("./controllers/authController");
 const { authenticateToken } = require("./middleware/authMiddleware");
 const fileRoutes = require("./routes/fileRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const adminController = require("./controllers/adminController");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,8 @@ app.post("/login", authController.login);
 
 app.post("/logout", authenticateToken, authController.logout);
 app.get("/profile", authenticateToken, authController.getProfile);
+
+app.get("/Users",authenticateToken, adminController.getAllUsers);
 
 //file routes
 app.use("/dashboard", fileRoutes);
