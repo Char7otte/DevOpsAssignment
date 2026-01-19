@@ -3,6 +3,7 @@ import { DataTable } from "./data-table"
 import {useEffect, useState} from "react";
 import {createColumnHelper} from "@tanstack/react-table";
 import axios from "axios";
+import {formatDate} from "@/lib/utils";
 import {Checkbox} from "@/components/ui/checkbox";
 import {
     DropdownMenu,
@@ -13,10 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {MoreVertical} from "lucide-react";
-
-
-
-
 
 export default function DemoPage() {
 
@@ -74,7 +71,7 @@ export default function DemoPage() {
         }),
         columnHelper.accessor("created_at",{
             header: () => <p>Created At</p>,
-            cell: (info) => info.getValue()
+            cell: (info) => formatDate(info.getValue())
         }),
         columnHelper.display({
             id:"more",
@@ -127,7 +124,7 @@ export default function DemoPage() {
 
     return (
         <div className="flex flex-col items-center justify-center w-full h-full px-6 py-4">
-            <DataTable columns={columns} data={Users} />
+            <DataTable columns={columns} data={Users} setData={setUsers}/>
         </div>
     )
 }
