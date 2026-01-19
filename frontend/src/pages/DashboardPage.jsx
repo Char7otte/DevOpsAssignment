@@ -6,7 +6,7 @@ import "../SimpleDashboard.css";
 
 const DashboardPage = () => {
     const { user, logout, isAdmin } = useAuth();
-    const navigate = useNavigate();
+
 
 
 
