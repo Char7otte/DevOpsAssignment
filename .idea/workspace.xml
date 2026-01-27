@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8263c01d-8054-4d83-9cde-fee66d80c7ea" name="Changes" comment="some clean up">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/data-table/CreateUserForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/data-table/CreateUserForm.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/DashboardPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/DashboardPage.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +25,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Shakir Bin Md Yunos &lt;s10269080@connect.np.edu.sg&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -102,6 +108,7 @@
       <workItem from="1768814139909" duration="10953000" />
       <workItem from="1768990177357" duration="782000" />
       <workItem from="1769343298955" duration="922000" />
+      <workItem from="1769427477289" duration="2996000" />
     </task>
     <task id="LOCAL-00001" summary="Add tailwind">
       <option name="closed" value="true" />
