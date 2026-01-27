@@ -15,6 +15,8 @@ import {
 import {Button} from "@/components/ui/button";
 import {MoreVertical} from "lucide-react";
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function DemoPage() {
 
     const [users, setUsers] = useState<User[]>([])
@@ -24,7 +26,7 @@ export default function DemoPage() {
         const getAllUsers = async () => {
             try {
                 setLoading(true)
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/Users`);
+                const response = await axios.get(`${API}/admin/`);
                 setUsers(response.data);
             } catch (error) {
                 console.error('Failed to fetch users:', error);
@@ -82,7 +84,7 @@ export default function DemoPage() {
                 const handleDelete = async  () => {
                     console.log('Delete clicked for user:', user);
                     try {
-                        await axios.delete(`${import.meta.env.VITE_API_URL}/delete_user/${user.userid}`);
+                        await axios.delete(`${API}/admin/delete_user/${user.userid}`);
 
                         setUsers((prev: User[]) => prev.filter((u) => u.userid !== user.userid));
                     } catch (error) {

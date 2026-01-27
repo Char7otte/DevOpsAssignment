@@ -22,10 +22,6 @@ app.post("/login", authController.login);
 app.post("/logout", authenticateToken, authController.logout);
 app.get("/profile", authenticateToken, authController.getProfile);
 
-app.get("/Users", adminController.getAllUsers);
-app.post("/create_user",authenticateToken, adminController.createUser);
-app.delete("/delete_user/:id",authenticateToken, adminController.deleteUser);
-
 //file routes
 app.use("/dashboard", fileRoutes);
 app.use("/admin", adminRoutes);

@@ -52,9 +52,9 @@ const CreateUserForm: React.FC<CreateUserFormProps> = ({
 
         setIsLoading(true)
         try {
-            await axios.post(`${import.meta.env.VITE_API_URL}/create_user`, formData)
+            await axios.post(`${import.meta.env.VITE_API_URL}/admin/create_user`, formData)
 
-            const usersResponse = await axios.get(`${import.meta.env.VITE_API_URL}/users`)
+            const usersResponse = await axios.get(`${import.meta.env.VITE_API_URL}/admin/`)
             setUsers(usersResponse.data)
 
             alert("User created successfully!")
