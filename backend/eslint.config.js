@@ -1,118 +1,86 @@
-// eslint.config.js (ESLint v9+ with Jest support)
-const js = require("@eslint/js");
+import js from "@eslint/js";
+import globals from "globals";
+import reactHooks from "eslint-plugin-react-hooks";
+import reactRefresh from "eslint-plugin-react-refresh";
 
-module.exports = [
-    // Configuration for all JS files
+export default [
+    // Ignore patterns
     {
-        files: ["**/*.js"],
+        ignores: ["dist", "build", "coverage", "node_modules"],
+    },
+
+    // Main configuration for JS/JSX files
+    {
+        files: ["**/*.{js,jsx}"],
         languageOptions: {
-            ecmaVersion: "latest",
-            sourceType: "commonjs", // Change to 'module' if using import/export
-            globals: {
-                // Node.js globals
-                console: "readonly",
-                process: "readonly",
-                __dirname: "readonly",
-                __filename: "readonly",
-                Buffer: "readonly",
-                module: "readonly",
-                require: "readonly",
-                exports: "writable",
-                global: "readonly",
-                setTimeout: "readonly",
-                clearTimeout: "readonly",
-                setInterval: "readonly",
-                clearInterval: "readonly",
+            ecmaVersion: 2020,
+            globals: globals.browser,
+            parserOptions: {
+                ecmaVersion: "latest",
+                ecmaFeatures: { jsx: true },
+                sourceType: "module",
             },
+        },
+        plugins: {
+            "react-hooks": reactHooks,
+            "react-refresh": reactRefresh,
         },
         rules: {
             ...js.configs.recommended.rules,
-            "no-console": "warn",
+            ...reactHooks.configs.recommended.rules,
+
+            // React Refresh - warn about non-component exports
+            "react-refresh/only-export-components": [
+                "warn",
+                { allowConstantExport: true },
+            ],
+
+            // Variables
             "no-unused-vars": [
                 "error",
                 {
-                    argsIgnorePattern: "^_|req|res|next",
                     varsIgnorePattern: "^_",
+                    argsIgnorePattern: "^_",
                 },
             ],
-            "consistent-return": "off",
-            "no-process-exit": "warn",
-            eqeqeq: ["error", "always"],
-            curly: ["error", "all"],
-            indent: ["error", 4],
-            quotes: ["error", "double"],
-            semi: ["error", "always"],
-            "comma-dangle": ["error", "always-multiline"],
-            "no-trailing-spaces": "error",
-            "no-multiple-empty-lines": ["error", { max: 1 }],
-            "space-before-function-paren": [
-                "error",
-                {
-                    anonymous: "always",
-                    named: "never",
-                    asyncArrow: "always",
-                },
-            ],
-            "keyword-spacing": "error",
-            "space-infix-ops": "error",
-            "arrow-spacing": "error",
-            "object-curly-spacing": ["error", "always"],
-            "array-bracket-spacing": ["error", "never"],
-            "no-var": "error",
+
+            // Console
+            "no-console": ["warn", { allow: ["error", "warn"] }],
+
+            // Modern JavaScript
             "prefer-const": "error",
-            "prefer-arrow-callback": "error",
+            "no-var": "error",
+            "prefer-arrow-callback": "warn",
+
+            // Code quality
+            eqeqeq: ["error", "always", { null: "ignore" }],
+            "no-duplicate-imports": "error",
+
+            // React specific
+            "react-hooks/exhaustive-deps": "warn",
         },
     },
 
-    // Configuration specifically for test files
+    // Configuration for test files
     {
         files: [
-            "**/*.test.js",
-            "**/*.spec.js",
-            "**/__tests__/**/*.js",
-            "**/tests/**/*.js",
+            "**/*.test.{js,jsx}",
+            "**/*.spec.{js,jsx}",
+            "**/__tests__/**/*.{js,jsx}",
         ],
         languageOptions: {
             globals: {
-                // Jest globals
-                jest: "readonly",
+                ...globals.browser,
                 describe: "readonly",
-                test: "readonly",
                 it: "readonly",
+                test: "readonly",
                 expect: "readonly",
-                beforeAll: "readonly",
-                afterAll: "readonly",
                 beforeEach: "readonly",
                 afterEach: "readonly",
-                // Node.js globals
-                console: "readonly",
-                process: "readonly",
-                __dirname: "readonly",
-                __filename: "readonly",
-                Buffer: "readonly",
-                module: "readonly",
-                require: "readonly",
-                exports: "writable",
-                global: "readonly",
-                setTimeout: "readonly",
-                clearTimeout: "readonly",
-                setInterval: "readonly",
-                clearInterval: "readonly",
+                beforeAll: "readonly",
+                afterAll: "readonly",
+                vi: "readonly",
             },
         },
-    },
-
-    // Ignore patterns
-    {
-        ignores: [
-            "node_modules/**",
-            "dist/**",
-            "build/**",
-            "coverage/**",
-            "*.min.js",
-            "logs/**",
-            "tmp/**",
-            "temp/**",
-        ],
     },
 ];
