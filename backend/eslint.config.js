@@ -27,6 +27,7 @@ module.exports = [
         },
         rules: {
             ...js.configs.recommended.rules,
+            "no-useless-catch": "warn",
             "no-console": "warn",
             "no-unused-vars": [
                 "error",
