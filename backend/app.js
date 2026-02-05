@@ -6,7 +6,7 @@ const authController = require("./controllers/authController");
 const { authenticateToken } = require("./middleware/authMiddleware");
 const fileRoutes = require("./routes/fileRoutes");
 const adminRoutes = require("./routes/adminRoutes");
-const adminController = require("./controllers/adminController");
+// const adminController = require("./controllers/adminController");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,6 +14,10 @@ const PORT = process.env.PORT || 3000;
 //middleware
 app.use(cors());
 app.use(express.json());
+
+app.get("/", (req, res) => {
+    res.send("API is working");
+});
 
 //routes
 app.post("/register", authController.register);
@@ -28,5 +32,5 @@ app.use("/admin", adminRoutes);
 
 //start server
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on http://localhost:${PORT}`);
 });
