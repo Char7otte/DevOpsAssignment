@@ -12,6 +12,7 @@ jobs:
       - name: Sync with Upstream
         uses: actions/github-script@v6
         with:
+          token: ${{ secrets.PAT }}
           script: |
             github.rest.repos.mergeUpstream({
               owner: context.repo.owner,
