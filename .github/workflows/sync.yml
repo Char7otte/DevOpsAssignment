@@ -12,6 +12,6 @@ jobs:
             - name: Sync fork
               uses: tgymnich/fork-sync@v1.4
               with:
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
-                  owner: "ORIGINAL_OWNER"
-                  branch: "main"
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  base: "main"
+                  head: "main"
